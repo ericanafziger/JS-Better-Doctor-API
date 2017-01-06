@@ -2,121 +2,72 @@
 exports.apiKey = "35fdc865fda6b32039076c66df3c78d7";
 
 },{}],2:[function(require,module,exports){
+var apiKey = require('./../.env').apiKey;
+var Doctors = require('./../js/objects.js').doctorsModule;
 
-function Search() {
+exports.getDoctors = function(medicalIssue) {
+
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&limit=20&user_key=' + apiKey)
+  .then(function(response) {
+    var DoctorsList = new Doctors();
+    DoctorsList.setResults(response);
+    var firstName = DoctorsList.setName();
+  })
+  .fail(function(error){
+    console.log("fail");
+  });
+
+};
+
+},{"./../.env":1,"./../js/objects.js":3}],3:[function(require,module,exports){
+
+function Doctors() {
   this.results = [];
 }
 
-Search.prototype.resultsSet = function(array) {
-  this.results = array;
+Doctors.prototype.setResults = function (apiReturn) {
+    this.results = apiReturn;
 };
 
-Search.prototype.posterSet = function() {
-  this.results.results.forEach(function(item){
-    var id = item.id;
-    var image = item.poster_path;
-    var poster;
-    if (image) {
-      poster = "<img id='" + id + "' class='poster' src='http://image.tmdb.org/t/p/w185/" + image + "'>";
-      $("#output").append("<div class='movie'>" + poster + "</div>");
+Doctors.prototype.setName = function () {
+  $("#output").html("");
+  this.results.data.forEach(function(item) {
+    var firstName = item.profile.first_name;
+    var lastName = item.profile.last_name;
+    var title = item.profile.title;
+    var image = item.profile.image_url;
+    var specialties = item.specialties[0].actor;
+    var streetAddress = item.practices[0].visit_address.street;
+    var streetAddress2 = item.practices[0].visit_address.street2;
+    var city = item.practices[0].visit_address.city;
+    var state = item.practices[0].visit_address.state;
+    if (streetAddress2) {
+      $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + '</h3><h3>' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p><p>'+ streetAddress2 +'</p><p>'+ city +' '+ state +'</p></div>');    
+    } else {
+      $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + '</h3><h3>' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p>'+ city +' '+ state +'</p></div>');
     }
-  });
-};
-Search.prototype.actorToMovie = function() {
-  $('#output').html("");
-  debugger;
-  this.results.cast.forEach(function(item){
-    var id = item.id;
-    var image = item.poster_path;
-    var poster;
-    if (image) {
-      poster = "<img id='" + id + "' class='poster' src='http://image.tmdb.org/t/p/w185/" + image + "'>";
-      $("#output").append("<div class='movie'>" + poster + "</div>");
-    }
+
   });
 };
 
-Search.prototype.inputSet = function(movie) {
-  var title = movie.title;
-  var id = movie.id;
-  $('input').val(title);
-  $('form').trigger('submit');
-};
 
-Search.prototype.titleSet = function(movie) {
-  var title = movie.title;
-  var date = movie.release_date;
-  var id = movie.id;
-  var overview = movie.overview;
-  var budget = movie.budget;
 
-  var genres = [];
-  genres.push(movie.genres[0].name, movie.genres[1].name);
-  genres = genres.join(" and ");
+exports.doctorsModule = Doctors;
 
-  var backdrop;
-  var backdropImage = movie.backdrop_path;
-  if (backdropImage) {
-    backdrop = "http://image.tmdb.org/t/p/original/" + backdropImage;
-  }
-  $('#outputDetail .movieDetails').append("<h2>"+title+"</h2><h6>Release date: "+date+"</h6><h6>Genre: "+ genres+"</h6><p>"+overview+"</p>");
-  $('#outputDetail').css('background-image', 'url('+ backdrop +')');
-
-};
-
-Search.prototype.actorSet = function() {
-  this.results.results.forEach(function(item){
-    var name = item.name;
-    // var knownFor = item.known_for[0].title;
-    var actorId = item.id;
-    var photo = item.profile_path;
-    var image;
-    if (photo) {
-      image = "<img class='image' id='"+actorId+"' src='http://image.tmdb.org/t/p/w185/" + item.profile_path + "'>";
-      $("#output").append("<div class='headshot'><h3>" + name + "</h3>" + image + "</div>");
-    }
-  });
-};
-
-Search.prototype.cast = function (actors) {
-  for (i=0; i<6; i++) {
-    var name = actors.cast[i].name;
-    var character = actors.cast[i].character;
-    var id = actors.cast[i].id;
-    var profileImage = actors.cast[i].profile_path;
-    var profile;
-    if (profileImage) {
-      profile = "<img class='image' id='"+id+"' src='http://image.tmdb.org/t/p/w185/" + actors.cast[i].profile_path + "'>";
-
-      $("#outputDetail .actors").append("<div class='actor'><h3>" + name + "</h3><h5>Character: " + character + "</h5>" + profile + "</div>");
-    }
-  }
-};
-Search.prototype.filmography = function(films) {
-  films.cast.forEach(function(film) {
-    var filmId = film.id;
-    var poster;
-    var image = film.poster_path;
-    if (image) {
-      poster = "<img id='" + filmId + "' class='poster' src='http://image.tmdb.org/t/p/w185/" + image + "'>";
-      $("#output").append("<div class='movie'>" + poster + "</div>");
-    }
-  });
-};
-
-exports.searchModule = Search;
-
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
-var Search = require('./../js/form.js').searchModule;
+var getDoctors = require('./../js/api-call.js').getDoctors;
+var Doctors = require('./../js/objects.js').doctorsModule;
 
 $(document).ready(function() {
 
   $("form").submit(function(event) {
     event.preventDefault();
-    var userSymptom = $("input.symptom").val();
-    console.log(userSymptom);
+    var medicalIssue = $("input.symptom").val();
+    var results = getDoctors(medicalIssue);
+
+    $('#output').show();
   });
 });
 
-},{"./../.env":1,"./../js/form.js":2}]},{},[3]);
+},{"./../.env":1,"./../js/api-call.js":2,"./../js/objects.js":3}]},{},[4]);

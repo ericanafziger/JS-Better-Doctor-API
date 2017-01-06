@@ -1,11 +1,14 @@
 var apiKey = require('./../.env').apiKey;
-var Search = require('./../js/form.js').searchModule;
+var getDoctors = require('./../js/api-call.js').getDoctors;
+var Doctors = require('./../js/objects.js').doctorsModule;
 
 $(document).ready(function() {
 
   $("form").submit(function(event) {
     event.preventDefault();
-    var userSymptom = $("input.symptom").val();
-    console.log(userSymptom);
+    var medicalIssue = $("input.symptom").val();
+    var results = getDoctors(medicalIssue);
+
+    $('#output').show();
   });
 });
