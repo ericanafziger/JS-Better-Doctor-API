@@ -8,7 +8,7 @@
 
 ## Setup/Installation Requirements
 
-* Open page [here](https://ericanafziger.github.io/ericakaitcreative/)
+* Open page [here](https://ericanafziger.github.io/JS-Better-Doctor-API/)
 * Or clone repository from Github
 * Use npm install to install npm dependency files
 * use bower install to install bower dependency files
