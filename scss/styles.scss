@@ -93,6 +93,21 @@ form {
     color: lighten($prim-color, 10%);
   }
 }
+#info {
+  display: none;
+  transition: all ease-in-out 1s;
+  background: rgba(255,255,255,0.8);
+  border-radius: 30px;
+  width: 800px;
+  padding: 20px;
+  margin: 0px auto 20px auto;
+  h5 {
+    font-size: 1em;
+    text-align: center;
+    color: $sec-color;
+    font-family: $font-family;
+  }
+}
 #output {
   display: flex;
   justify-content: center;

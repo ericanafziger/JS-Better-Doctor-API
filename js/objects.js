@@ -56,6 +56,7 @@ DoctorsResults.prototype.displayResults = function () {
     var street2 = DoctorObject.streetAddress2;
     var city = "<p>" + DoctorObject.city;
     var state = ", " + DoctorObject.state + "</p>";
+    $("#info").show();
     $("#output").append('<div class="doctor" id="'+ id +'"></div>');
     $("#output #" + id).append('<div class="bio '+ id +'"></div>');
     $(".bio." + id).append(bio);
