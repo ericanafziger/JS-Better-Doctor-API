@@ -10,8 +10,15 @@ $sec-color: #349cde;
 $font-family: 'Open Sans', sans-serif;
 $font-family-big: 'Poppins', sans-serif;
 $color-light: white;
+$max-width: 1600px;
+$lg-break: "(max-width: 1200px)";
+$md-break: "(max-width: 780px)";
+$sm-break: "(max-width: 600px)";
 
 //start of styles
+body {
+  background: lightgrey;
+}
 .container {
   margin: 0 auto;
   position: relative;
@@ -29,6 +36,11 @@ $color-light: white;
     font-size: 4em;
     letter-spacing: 2px;
     font-family: $font-family-big;
+    @media screen and #{$lg-break} {
+      font-size: 3em;
+      margin: 20px;
+      line-height: 1em;
+    }
   }
   h3 {
     text-align: center;
@@ -44,6 +56,16 @@ $color-light: white;
   width: 800px;
   padding: 50px;
   margin: 0 auto;
+  @media screen and #{$lg-break} {
+    width: 70%;
+  }
+  @media screen and #{$md-break} {
+    padding: 30px;
+  }
+  @media screen and #{$sm-break} {
+    width: 90%;
+    padding: 20px;
+  }
 }
 form {
   width: 80%;
@@ -59,6 +81,7 @@ form {
     flex-basis: 60%;
     background: rgba(255,255,255, 0.8);
     font-size: 1em;
+    margin: 5px;
     text-transform: uppercase;
     color: lighten($prim-color, 10%);
     &:hover {
@@ -71,10 +94,16 @@ form {
     border: 2px solid $sec-color;
     font-size: 1.2em;
     color: lighten($prim-color, 10%);
-
+    @media screen and #{$lg-break} {
+      width: 30%;
+      margin: 5px;
+    }
+    @media screen and #{$md-break} {
+      width: 100%;
+    }
   }
   input {
-    margin: 10px;
+    margin: 5px;
     height: 60px;
     width: 200px;
     background: rgba(255,255,255, 0.8);
@@ -83,6 +112,12 @@ form {
     font-family: $font-family-big;
     padding-left: 15px;
     font-size: 1.2em;
+    @media screen and #{$lg-break} {
+      width: 30%;
+    }
+    @media screen and #{$md-break} {
+      width: 100%;
+    }
   }
   ::-webkit-input-placeholder {
     color: lighten($prim-color, 10%);
@@ -113,6 +148,8 @@ form {
   }
 }
 #output {
+  max-width: $max-width;
+  margin: 0px auto;
   background: lightgrey;
   display: flex;
   justify-content: center;
@@ -130,8 +167,14 @@ form {
     width: 200px;
     text-align: center;
     transition: all ease-in-out 200ms;
-    &:nth-child(n+17) {
-      margin-bottom: 80px;
+    @media screen and #{$lg-break} {
+      flex-basis: 30%;
+    }
+    @media screen and #{$md-break} {
+      flex-basis: 40%;
+    }
+    @media screen and #{$sm-break} {
+      flex-basis: 100%;
     }
     &:hover {
       cursor: pointer;
@@ -156,7 +199,10 @@ form {
         margin-right: 0;
         text-align: center;
         color: $color-light;
-        font-size: 0.8em;
+        font-size: 0.9em;
+        @media screen and #{$sm-break} {
+          font-size: 1.1em;
+        }
       }
       &:hover {
         cursor: pointer;
@@ -176,7 +222,7 @@ form {
     }
     p {
       font-family: $font-family;
-      width: 200px;
+      text-align: center;
       // white-space: nowrap;
       // overflow: hidden;
       // text-overflow: ellipsis;

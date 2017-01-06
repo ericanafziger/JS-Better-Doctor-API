@@ -121,14 +121,19 @@ $(document).ready(function() {
     var medicalIssue = $("input.symptom").val();
     var location = $("select").val();
     var sort = $("select.sort").val();
-    if (sort === "") {
-      sort = rating-desc;
-    }
-    //api call with passed medical issue, location, and sort method
-    getDoctors(medicalIssue, location, sort);
-    $('html, body').animate({
+    if (sort === "Sort by") {
+      sort = "rating-desc";
+      getDoctors(medicalIssue, location, sort);
+      $('html, body').animate({
+         scrollTop: $("#top").offset().top
+     }, 2000);
+   } else {
+     //api call with passed medical issue, location, and sort method
+     getDoctors(medicalIssue, location, sort);
+     $('html, body').animate({
        scrollTop: $("#top").offset().top
-   }, 2000);
+     }, 2000);
+   }
 
   });
 });
