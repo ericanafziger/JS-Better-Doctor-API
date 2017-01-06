@@ -4,7 +4,7 @@
 
 #### By _**Erica Nafziger**_
 
-<!-- ![Site Preview](img/screen-shot.png) -->
+![Site Preview](img/screen-shot.png)
 
 ## Setup/Installation Requirements
 
