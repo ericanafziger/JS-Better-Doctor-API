@@ -20,7 +20,9 @@ $color-light: white;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  background: url('../../img/background-texture.jpg');
+  background: url('../../img/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   overflow: auto;
   h1 {
     color: $prim-color;
@@ -35,6 +37,13 @@ $color-light: white;
     font-family: $font-family;
     margin-bottom: 20px;
   }
+}
+.entryText {
+  background: rgba(255,255,255,0.8);
+  border-radius: 30px;
+  width: 800px;
+  padding: 50px;
+  margin: 0 auto;
 }
 form {
   width: 80%;
@@ -67,6 +76,9 @@ form {
     padding: 8px;
     padding-left: 15px;
     font-size: 1.2em;
+}
+::-webkit-input-placeholder {
+    color: lighten($prim-color, 10%);
 }
 #output {
   display: flex;
