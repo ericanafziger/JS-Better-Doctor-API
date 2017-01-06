@@ -6,9 +6,12 @@ $(document).ready(function() {
     event.preventDefault();
     var medicalIssue = $("input.symptom").val();
     var location = $("select").val();
-    console.log(location);
-    //api call with passed medical issue
-    getDoctors(medicalIssue, location);
+    var sort = $("select.sort").val();
+    if (sort === "") {
+      sort = rating-desc;
+    }
+    //api call with passed medical issue, location, and sort method
+    getDoctors(medicalIssue, location, sort);
     $('html, body').animate({
        scrollTop: $("#top").offset().top
    }, 2000);

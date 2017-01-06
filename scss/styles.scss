@@ -51,11 +51,12 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   button {
     border-radius: 5px;
     border: 2px solid $sec-color;
     height: 60px;
-    width: 100px;
+    flex-basis: 60%;
     background: rgba(255,255,255, 0.8);
     font-size: 1em;
     text-transform: uppercase;
@@ -66,6 +67,7 @@ form {
   }
   select {
     height: 60px;
+    width: 150px;
     border: 2px solid $sec-color;
     font-size: 1.2em;
     color: lighten($prim-color, 10%);
@@ -74,7 +76,7 @@ form {
   input {
     margin: 10px;
     height: 60px;
-    width: 300px;
+    width: 200px;
     background: rgba(255,255,255, 0.8);
     border: 2px solid $sec-color;
     border-radius: 5px;

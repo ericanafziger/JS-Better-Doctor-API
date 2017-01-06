@@ -1,9 +1,9 @@
 var apiKey = require('./../.env').apiKey;
 var Doctors = require('./../js/objects.js').doctorsModule;
 
-exports.getDoctors = function(medicalIssue, location) {
+exports.getDoctors = function(medicalIssue, location, sort) {
   //calls api
-  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&sort=rating-desc&skip=0&limit=20&user_key=' + apiKey)
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&sort='+sort+'&skip=0&limit=20&user_key=' + apiKey)
   .then(function(response) {
     var DoctorsList = new Doctors();
     //sets api response to results array of object
@@ -19,11 +19,15 @@ exports.getDoctors = function(medicalIssue, location) {
         $(".bio."+this.id).toggle();
       });
     } else {
+      $('#output').hide();
+      $('#info').hide();
       $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
     }
   })
   .fail(function(error){
-    console.log("fail");
+    $('#output').hide();
+    $('#info').hide();
+    $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
   });
 
 };
