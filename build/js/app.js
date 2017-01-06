@@ -107,6 +107,11 @@ $(document).ready(function() {
     getDoctors(medicalIssue);
 
     $('#output').show();
+    function shrink() {
+      $(".entryText").addClass("shrink");
+    }
+    setTimeout(shrink, 500);
+
   });
 });
 
