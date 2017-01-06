@@ -22,9 +22,8 @@ Doctors.prototype.setName = function () {
     if (streetAddress2) {
       $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + ', ' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p><p>'+ streetAddress2 +'</p><p>'+ city +' '+ state +'</p></div>');
     } else {
-      $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + ', ' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p>'+ city +' '+ state +'</p></div>');
+      $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + ', ' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p><p>'+ city +' '+ state +'</p></div>');
     }
-
   });
 };
 
