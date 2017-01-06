@@ -7,7 +7,7 @@ var Doctors = require('./../js/objects.js').doctorsModule;
 
 exports.getDoctors = function(medicalIssue, location) {
   //calls api
-  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&skip=0&limit=20&user_key=' + apiKey)
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&sort=rating-desc&skip=0&limit=20&user_key=' + apiKey)
   .then(function(response) {
     var DoctorsList = new Doctors();
     //sets api response to results array of object
@@ -21,6 +21,10 @@ exports.getDoctors = function(medicalIssue, location) {
         $(".entryText").addClass("shrink");
       }
       setTimeout(shrink, 500);
+      $(".doctor").click(function() {
+        var id = this.id;
+        $(".bio."+this.id).toggle();
+      });
     } else {
       $('#output').html("<div class='error'><h3>Sorry the symptom you entered cannot be found.</h3></div>");
     }
@@ -60,6 +64,7 @@ DoctorsResults.prototype.addDoctors = function () {
   this.results.data.forEach(function(item) {
     var NewDoctor = new Doctor();
     NewDoctor.phone = item.practices[0].phones[0].number;
+    NewDoctor.bio = item.profile.bio;
     NewDoctor.idNumber = item.npi;
     NewDoctor.firstName = item.profile.first_name;
     NewDoctor.lastName = item.profile.last_name;
@@ -78,6 +83,7 @@ DoctorsResults.prototype.addDoctors = function () {
 DoctorsResults.prototype.displayResults = function () {
   this.doctors[0].forEach(function(DoctorObject) {
     var id = DoctorObject.idNumber;
+    var bio = "<p>" + DoctorObject.bio + "</p>";
     var first = "<h3>" + DoctorObject.firstName;
     var last = " " + DoctorObject.lastName;
     var title = ", " + DoctorObject.drTitle + "</h3>";
@@ -88,11 +94,13 @@ DoctorsResults.prototype.displayResults = function () {
     var street2 = DoctorObject.streetAddress2;
     var city = "<p>" + DoctorObject.city;
     var state = ", " + DoctorObject.state + "</p>";
-    $("#output").append('<div class="doctor '+ id +'"></div>');
+    $("#output").append('<div class="doctor" id="'+ id +'"></div>');
+    $("#output #" + id).append('<div class="bio '+ id +'"></div>');
+    $(".bio." + id).append(bio);
     if (street2) {
-      $("." + id).append(image + first + last + title + specialties + phone +  street1 + "<p>" + street2 + "</p>"+ city + state);
+      $(".doctor#" + id).append(image + first + last + title + specialties + phone +  street1 + "<p>" + street2 + "</p>"+ city + state);
     } else {
-      $("." + id).append(image + first + last + title + specialties + phone +  street1 + city + state);
+      $(".doctor#" + id).append(image + first + last + title + specialties + phone +  street1 + city + state);
     }
   });
 };
@@ -113,6 +121,7 @@ $(document).ready(function() {
     console.log(location);
     //api call with passed medical issue
     getDoctors(medicalIssue, location);
+
   });
 });
 

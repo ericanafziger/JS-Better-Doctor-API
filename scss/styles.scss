@@ -12,7 +12,6 @@ $font-family-big: 'Poppins', sans-serif;
 $color-light: white;
 
 //start of styles
-
 .container {
   margin: 0 auto;
   position: relative;
@@ -98,14 +97,48 @@ form {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  .show {
+    display: block;
+  }
   .doctor {
+    position: relative;
     border-radius: 10px;
-    background: $color-light;
+    background: darken($color-light, 5%);
     padding: 25px 15px;
     margin: 10px;
     flex-basis: 20%;
     width: 200px;
     text-align: center;
+    transition: all ease-in-out 200ms;
+    &:hover {
+      cursor: pointer;
+      background: $color-light;
+    }
+    .bio {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      display: none;
+      border-radius: 10px;
+      background: darken($sec-color, 10%);
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding: 15px;
+      text-overflow: ellipsis;
+      p {
+        font-family: $font-family;
+        width: auto;
+        margin-right: 0;
+        text-align: center;
+        color: $color-light;
+        font-size: 0.8em;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
     h3 {
       margin: 10px 0px 2px 0px;
     }
@@ -121,9 +154,9 @@ form {
     p {
       font-family: $font-family;
       width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
     }
     img {
       border-radius: 10px;

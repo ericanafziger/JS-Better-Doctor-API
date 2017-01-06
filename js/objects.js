@@ -26,6 +26,7 @@ DoctorsResults.prototype.addDoctors = function () {
   this.results.data.forEach(function(item) {
     var NewDoctor = new Doctor();
     NewDoctor.phone = item.practices[0].phones[0].number;
+    NewDoctor.bio = item.profile.bio;
     NewDoctor.idNumber = item.npi;
     NewDoctor.firstName = item.profile.first_name;
     NewDoctor.lastName = item.profile.last_name;
@@ -44,6 +45,7 @@ DoctorsResults.prototype.addDoctors = function () {
 DoctorsResults.prototype.displayResults = function () {
   this.doctors[0].forEach(function(DoctorObject) {
     var id = DoctorObject.idNumber;
+    var bio = "<p>" + DoctorObject.bio + "</p>";
     var first = "<h3>" + DoctorObject.firstName;
     var last = " " + DoctorObject.lastName;
     var title = ", " + DoctorObject.drTitle + "</h3>";
@@ -54,11 +56,13 @@ DoctorsResults.prototype.displayResults = function () {
     var street2 = DoctorObject.streetAddress2;
     var city = "<p>" + DoctorObject.city;
     var state = ", " + DoctorObject.state + "</p>";
-    $("#output").append('<div class="doctor '+ id +'"></div>');
+    $("#output").append('<div class="doctor" id="'+ id +'"></div>');
+    $("#output #" + id).append('<div class="bio '+ id +'"></div>');
+    $(".bio." + id).append(bio);
     if (street2) {
-      $("." + id).append(image + first + last + title + specialties + phone +  street1 + "<p>" + street2 + "</p>"+ city + state);
+      $(".doctor#" + id).append(image + first + last + title + specialties + phone +  street1 + "<p>" + street2 + "</p>"+ city + state);
     } else {
-      $("." + id).append(image + first + last + title + specialties + phone +  street1 + city + state);
+      $(".doctor#" + id).append(image + first + last + title + specialties + phone +  street1 + city + state);
     }
   });
 };
