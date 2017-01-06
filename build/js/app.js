@@ -108,10 +108,15 @@ exports.searchModule = Search;
 
 },{}],3:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
-var Search = require('./../js/search.js').searchModule;
+var Search = require('./../js/form.js').searchModule;
 
 $(document).ready(function() {
-  console.log(apiKey);
+
+  $("form").submit(function(event) {
+    event.preventDefault();
+    var userSymptom = $("input.symptom").val();
+    console.log(userSymptom);
+  });
 });
 
-},{"./../.env":1,"./../js/search.js":2}]},{},[3]);
+},{"./../.env":1,"./../js/form.js":2}]},{},[3]);
