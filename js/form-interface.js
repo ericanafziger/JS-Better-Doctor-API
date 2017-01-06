@@ -5,8 +5,10 @@ $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
     var medicalIssue = $("input.symptom").val();
+    var location = $("select").val();
+    console.log(location);
     //api call with passed medical issue
-    getDoctors(medicalIssue);
+    getDoctors(medicalIssue, location);
 
     $('#output').show();
     function shrink() {

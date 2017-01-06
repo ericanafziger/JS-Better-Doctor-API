@@ -5,9 +5,9 @@ exports.apiKey = "35fdc865fda6b32039076c66df3c78d7";
 var apiKey = require('./../.env').apiKey;
 var Doctors = require('./../js/objects.js').doctorsModule;
 
-exports.getDoctors = function(medicalIssue) {
+exports.getDoctors = function(medicalIssue, location) {
   //calls api
-  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location=45.5231%2C-122.6765%2C%205&user_location=45.5231%2C-122.6765&skip=0&limit=20&user_key=' + apiKey)
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&skip=0&limit=20&user_key=' + apiKey)
   .then(function(response) {
     var DoctorsList = new Doctors();
     //sets api response to results array of object
@@ -61,11 +61,6 @@ DoctorsResults.prototype.addDoctors = function () {
     NewDoctor.city = item.practices[0].visit_address.city;
     NewDoctor.state = item.practices[0].visit_address.state;
     Results.push(NewDoctor);
-    // if (streetAddress2) {
-    //   $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + ', ' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p><p>'+ streetAddress2 +'</p><p>'+ city +' '+ state +'</p></div>');
-    // } else {
-    //   $("#output").append('<div class="doctor"><img src='+ image +'><h3>' + firstName + ' ' + lastName + ', ' + title + '</h3><h4>' + specialties + '</h4><p>'+ streetAddress +'</p><p>'+ city +' '+ state +'</p></div>');
-    // }
   });
   this.doctors.push(Results);
 };
@@ -103,8 +98,10 @@ $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
     var medicalIssue = $("input.symptom").val();
+    var location = $("select").val();
+    console.log(location);
     //api call with passed medical issue
-    getDoctors(medicalIssue);
+    getDoctors(medicalIssue, location);
 
     $('#output').show();
     function shrink() {
