@@ -16,17 +16,14 @@ exports.getDoctors = function(medicalIssue, location) {
       //adds doctors to the DoctorsList array
       DoctorsList.addDoctors();
       DoctorsList.displayResults();
+      $('.error').html("");
       $('#output').show();
-      function shrink() {
-        $(".entryText").addClass("shrink");
-      }
-      setTimeout(shrink, 500);
       $(".doctor").click(function() {
         var id = this.id;
         $(".bio."+this.id).toggle();
       });
     } else {
-      $('#output').html("<div class='error'><h3>Sorry the symptom you entered cannot be found.</h3></div>");
+      $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
     }
   })
   .fail(function(error){
@@ -122,6 +119,9 @@ $(document).ready(function() {
     console.log(location);
     //api call with passed medical issue
     getDoctors(medicalIssue, location);
+    $('html, body').animate({
+       scrollTop: $("#top").offset().top
+   }, 2000);
 
   });
 });

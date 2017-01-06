@@ -37,13 +37,6 @@ $color-light: white;
     margin-bottom: 20px;
   }
 }
-.entryText.shrink {
-  padding: 15px;
-  margin: 30px auto;
-  h1 {
-    font-size: 2em;
-  }
-}
 .entryText {
   transition: all ease-in-out 1s;
   background: rgba(255,255,255,0.8);
@@ -93,22 +86,32 @@ form {
     color: lighten($prim-color, 10%);
   }
 }
+.error {
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  h3 {
+    color: $prim-color;
+    font-size: 1.4em;
+    margin: 30px 0px 10px 0px;
+  }
+}
 #info {
   display: none;
   transition: all ease-in-out 1s;
-  background: rgba(255,255,255,0.8);
-  border-radius: 30px;
-  width: 800px;
+  background: $prim-color;
+  width: 100%;
   padding: 20px;
-  margin: 0px auto 20px auto;
+  margin: 0px auto;
   h5 {
-    font-size: 1em;
+    font-size: 1.2em;
     text-align: center;
-    color: $sec-color;
+    color: white;
     font-family: $font-family;
   }
 }
 #output {
+  background: lightgrey;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -125,6 +128,9 @@ form {
     width: 200px;
     text-align: center;
     transition: all ease-in-out 200ms;
+    &:nth-child(n+17) {
+      margin-bottom: 80px;
+    }
     &:hover {
       cursor: pointer;
       background: $color-light;
@@ -180,16 +186,6 @@ form {
       width: 130px;
       height: 130px;
       object-fit: cover;
-    }
-  }
-  .error {
-    border-radius: 10px;
-    background: $color-light;
-    padding: 25px 15px;
-    margin: 10px;
-    text-align: center;
-    h3 {
-      margin: 10px 0px 2px 0px;
     }
   }
 }

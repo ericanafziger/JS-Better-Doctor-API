@@ -9,6 +9,9 @@ $(document).ready(function() {
     console.log(location);
     //api call with passed medical issue
     getDoctors(medicalIssue, location);
+    $('html, body').animate({
+       scrollTop: $("#top").offset().top
+   }, 2000);
 
   });
 });
