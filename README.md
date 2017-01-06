@@ -15,7 +15,7 @@
 
 ## Description
 
-_This app allows the user to search for Doctors in the Portland, OR area. It returns a list of results for doctors based on the symptoms the user has entered in the form. It includes photos of the doctors as well as their name and address._
+_This app allows the user to search for Doctors in OR based on area. It returns a list of results for doctors based on the symptoms the user has entered in the form. It includes photos of the doctors as well as their name and address._
 
 ## Technologies Used
 
