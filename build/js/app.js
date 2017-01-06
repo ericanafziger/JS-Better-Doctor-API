@@ -12,9 +12,18 @@ exports.getDoctors = function(medicalIssue, location) {
     var DoctorsList = new Doctors();
     //sets api response to results array of object
     DoctorsList.setResults(response);
-    //adds doctors to the DoctorsList array
-    DoctorsList.addDoctors();
-    DoctorsList.displayResults();
+    if (response.data.length > 0) {
+      //adds doctors to the DoctorsList array
+      DoctorsList.addDoctors();
+      DoctorsList.displayResults();
+      $('#output').show();
+      function shrink() {
+        $(".entryText").addClass("shrink");
+      }
+      setTimeout(shrink, 500);
+    } else {
+      $('#output').html("<div class='error'><h3>Sorry the symptom you entered cannot be found.</h3></div>");
+    }
   })
   .fail(function(error){
     console.log("fail");
@@ -50,6 +59,7 @@ DoctorsResults.prototype.addDoctors = function () {
   $("#output").html("");
   this.results.data.forEach(function(item) {
     var NewDoctor = new Doctor();
+    NewDoctor.phone = item.practices[0].phones[0].number;
     NewDoctor.idNumber = item.npi;
     NewDoctor.firstName = item.profile.first_name;
     NewDoctor.lastName = item.profile.last_name;
@@ -71,17 +81,18 @@ DoctorsResults.prototype.displayResults = function () {
     var first = "<h3>" + DoctorObject.firstName;
     var last = " " + DoctorObject.lastName;
     var title = ", " + DoctorObject.drTitle + "</h3>";
+    var phone = "<h5>(" + DoctorObject.phone.slice(0,3) + ") " + DoctorObject.phone.slice(3,6) + "-" + DoctorObject.phone.slice(6,10) + "</h5>";
     var image = "<img src='"+ DoctorObject.image +"'>";
     var specialties = "<h4>" + DoctorObject.specialties + "</h4>";
     var street1 = "<p>" + DoctorObject.streetAddress + "</p>";
     var street2 = DoctorObject.streetAddress2;
-    var city = "<p>" + DoctorObject.city + "</p>";
-    var state = "<p>" + DoctorObject.state + "</p>";
+    var city = "<p>" + DoctorObject.city;
+    var state = ", " + DoctorObject.state + "</p>";
     $("#output").append('<div class="doctor '+ id +'"></div>');
     if (street2) {
-      $("." + id).append(image + first + last + title + specialties + street1 + "<p>" + street2 + "</p>"+ city + state);
+      $("." + id).append(image + first + last + title + specialties + phone +  street1 + "<p>" + street2 + "</p>"+ city + state);
     } else {
-      $("." + id).append(image + first + last + title + specialties + street1 + city + state);
+      $("." + id).append(image + first + last + title + specialties + phone +  street1 + city + state);
     }
   });
 };
@@ -102,13 +113,6 @@ $(document).ready(function() {
     console.log(location);
     //api call with passed medical issue
     getDoctors(medicalIssue, location);
-
-    $('#output').show();
-    function shrink() {
-      $(".entryText").addClass("shrink");
-    }
-    setTimeout(shrink, 500);
-
   });
 });
 

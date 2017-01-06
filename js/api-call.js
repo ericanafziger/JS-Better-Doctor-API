@@ -8,9 +8,18 @@ exports.getDoctors = function(medicalIssue, location) {
     var DoctorsList = new Doctors();
     //sets api response to results array of object
     DoctorsList.setResults(response);
-    //adds doctors to the DoctorsList array
-    DoctorsList.addDoctors();
-    DoctorsList.displayResults();
+    if (response.data.length > 0) {
+      //adds doctors to the DoctorsList array
+      DoctorsList.addDoctors();
+      DoctorsList.displayResults();
+      $('#output').show();
+      function shrink() {
+        $(".entryText").addClass("shrink");
+      }
+      setTimeout(shrink, 500);
+    } else {
+      $('#output').html("<div class='error'><h3>Sorry the symptom you entered cannot be found.</h3></div>");
+    }
   })
   .fail(function(error){
     console.log("fail");

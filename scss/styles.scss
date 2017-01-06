@@ -40,6 +40,7 @@ $color-light: white;
 }
 .entryText.shrink {
   padding: 15px;
+  margin: 30px auto;
   h1 {
     font-size: 2em;
   }
@@ -66,12 +67,18 @@ form {
     background: rgba(255,255,255, 0.8);
     font-size: 1em;
     text-transform: uppercase;
-    color: $prim-color;
+    color: lighten($prim-color, 10%);
     &:hover {
       cursor: pointer;
     }
   }
-}
+  select {
+    height: 60px;
+    border: 2px solid $sec-color;
+    font-size: 1.2em;
+    color: lighten($prim-color, 10%);
+
+  }
   input {
     margin: 10px;
     height: 60px;
@@ -80,12 +87,12 @@ form {
     border: 2px solid $sec-color;
     border-radius: 5px;
     font-family: $font-family-big;
-    padding: 8px;
     padding-left: 15px;
     font-size: 1.2em;
-}
-::-webkit-input-placeholder {
+  }
+  ::-webkit-input-placeholder {
     color: lighten($prim-color, 10%);
+  }
 }
 #output {
   display: flex;
@@ -107,8 +114,16 @@ form {
       font-size: 1.1em;
       color: darken($sec-color, 20%);
     }
+    h5 {
+      font-family: $font-family;
+      color: $prim-color;
+    }
     p {
       font-family: $font-family;
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     img {
       border-radius: 10px;
@@ -117,6 +132,16 @@ form {
       width: 130px;
       height: 130px;
       object-fit: cover;
+    }
+  }
+  .error {
+    border-radius: 10px;
+    background: $color-light;
+    padding: 25px 15px;
+    margin: 10px;
+    text-align: center;
+    h3 {
+      margin: 10px 0px 2px 0px;
     }
   }
 }

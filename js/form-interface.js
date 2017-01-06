@@ -9,12 +9,5 @@ $(document).ready(function() {
     console.log(location);
     //api call with passed medical issue
     getDoctors(medicalIssue, location);
-
-    $('#output').show();
-    function shrink() {
-      $(".entryText").addClass("shrink");
-    }
-    setTimeout(shrink, 500);
-
   });
 });
