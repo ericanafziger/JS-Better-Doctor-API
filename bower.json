@@ -1,0 +1,20 @@
+{
+  "name": "better-doctor",
+  "description": "uses better doctor api to create list of recommended doctors",
+  "main": "index.js",
+  "authors": [
+    "Erica Nafziger"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
