@@ -1,4 +1,6 @@
-var getDoctors = require('./../js/api-call.js').getDoctors;
+var getDoctors = require('./../js/submit-call.js').getDoctors;
+var getSymptoms = require('./../js/initial-call.js').getDoctors;
+var apiKey = require('./../.env').apiKey;
 
 $(document).ready(function() {
 

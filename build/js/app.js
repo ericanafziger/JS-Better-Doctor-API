@@ -3,40 +3,22 @@ exports.apiKey = "35fdc865fda6b32039076c66df3c78d7";
 
 },{}],2:[function(require,module,exports){
 var apiKey = require('./../.env').apiKey;
-var Doctors = require('./../js/objects.js').doctorsModule;
 
-exports.getDoctors = function(medicalIssue, location, sort) {
-  //calls api
-  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&sort='+sort+'&skip=0&limit=20&user_key=' + apiKey)
-  .then(function(response) {
-    var DoctorsList = new Doctors();
-    //sets api response to results array of object
-    DoctorsList.setResults(response);
-    if (response.data.length > 0) {
-      //adds doctors to the DoctorsList array
-      DoctorsList.addDoctors();
-      DoctorsList.displayResults();
-      $('.error').html("");
-      $('#output').show();
-      $(".doctor").click(function() {
-        var id = this.id;
-        $(".bio."+this.id).toggle();
-      });
-    } else {
-      $('#output').hide();
-      $('#info').hide();
-      $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
-    }
-  })
-  .fail(function(error){
-    $('#output').hide();
-    $('#info').hide();
-    $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
-  });
+
+exports.getSymptoms = function() {
+  //calls get symptoms api
+
+    $.get('https://api.betterdoctor.com/2016-03-01/conditions?limit=50&user_key=' + apiKey)
+    .then(function(response) {
+      console.log(response);
+    })
+    .fail(function(error){
+      console.log(error);
+    });
 
 };
 
-},{"./../.env":1,"./../js/objects.js":3}],3:[function(require,module,exports){
+},{"./../.env":1}],3:[function(require,module,exports){
 
 function DoctorsResults() {
   this.results = [];
@@ -112,7 +94,44 @@ DoctorsResults.prototype.displayResults = function () {
 exports.doctorsModule = DoctorsResults;
 
 },{}],4:[function(require,module,exports){
-var getDoctors = require('./../js/api-call.js').getDoctors;
+var apiKey = require('./../.env').apiKey;
+var Doctors = require('./../js/objects.js').doctorsModule;
+
+exports.getDoctors = function(medicalIssue, location, sort) {
+  //calls api
+  $.get('https://api.betterdoctor.com/2016-03-01/doctors?query='+ medicalIssue+'&location='+location+'%2C%205&user_location='+location+'&sort='+sort+'&skip=0&limit=20&user_key=' + apiKey)
+  .then(function(response) {
+    var DoctorsList = new Doctors();
+    //sets api response to results array of object
+    DoctorsList.setResults(response);
+    if (response.data.length > 0) {
+      //adds doctors to the DoctorsList array
+      DoctorsList.addDoctors();
+      DoctorsList.displayResults();
+      $('.error').html("");
+      $('#output').show();
+      $(".doctor").click(function() {
+        var id = this.id;
+        $(".bio."+this.id).toggle();
+      });
+    } else {
+      $('#output').hide();
+      $('#info').hide();
+      $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
+    }
+  })
+  .fail(function(error){
+    $('#output').hide();
+    $('#info').hide();
+    $('.error').html("<h3>Sorry the symptom you entered cannot be found.</h3>");
+  });
+
+};
+
+},{"./../.env":1,"./../js/objects.js":3}],5:[function(require,module,exports){
+var getDoctors = require('./../js/submit-call.js').getDoctors;
+var getSymptoms = require('./../js/initial-call.js').getDoctors;
+var apiKey = require('./../.env').apiKey;
 
 $(document).ready(function() {
 
@@ -138,4 +157,4 @@ $(document).ready(function() {
   });
 });
 
-},{"./../js/api-call.js":2}]},{},[4]);
+},{"./../.env":1,"./../js/initial-call.js":2,"./../js/submit-call.js":4}]},{},[5]);
